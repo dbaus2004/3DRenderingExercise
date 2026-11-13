@@ -9,6 +9,15 @@ public class Basic3DExampleGame : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
+    // The triangle to draw
+    Triangle triangle;
+
+    // The quad to draw
+    Quad quad;
+
+    // The cube to draw
+    Cube cube;
+
     public Basic3DExampleGame()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -28,14 +37,26 @@ public class Basic3DExampleGame : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         // TODO: use this.Content to load your game content here
+        // Create the triangle
+        triangle = new Triangle(this);
+        // Create the quad
+        quad = new Quad(this);
+        // Create the cube
+        cube = new Cube(this);
     }
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+        if (
+            GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
+            || Keyboard.GetState().IsKeyDown(Keys.Escape)
+        )
             Exit();
 
         // TODO: Add your update logic here
+        triangle.Update(gameTime);
+        // update the cube
+        cube.Update(gameTime);
 
         base.Update(gameTime);
     }
@@ -45,7 +66,13 @@ public class Basic3DExampleGame : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         // TODO: Add your drawing code here
+        // Draw the triangle
+        triangle.Draw();
+        // Draw the quad
+        quad.Draw();
 
         base.Draw(gameTime);
+        // draw the cube
+        cube.Draw();
     }
 }
